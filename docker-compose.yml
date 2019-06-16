@@ -5,6 +5,12 @@ services:
         build: ./nginx/
         ports:
             - "127.0.0.1:8007:80"
+    
+    redis:
+        restart: always
+        image: redis:latest
+        expose:
+            - "6379"
 
     baza-explorer-back:
         restart: always
