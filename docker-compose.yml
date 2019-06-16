@@ -1,0 +1,39 @@
+version: "2"
+services:
+    nginx:
+        restart: always
+        build: ./nginx/
+        ports:
+            - "127.0.0.1:8007:80"
+
+    baza-explorer-back:
+        restart: always
+        build: ./baza-explorer-backend/
+        env_file: ./baza-explorer-backend/.env
+        expose:
+            - "8000"
+    
+    baza-daemon:
+        restart: always
+        build: ./baza-daemon/
+        expose:
+            - "11754"
+
+    baza-service:
+        restart: always
+        build: ./baza-daemon/
+        env_file: ./baza-daemon/.env
+        expose:
+            - "8070"
+    
+    poolserver:
+        restart: always
+        build: ./poolserver/
+        expose:
+            - '8117'
+        ports:
+            - '0.0.0.0:3333':'3333'
+            - '0.0.0.0:5555':'5555'
+            - '0.0.0.0:7777':'7777'
+        volume:
+            - ./poolserver/poolserverlogs:/pool/logs
