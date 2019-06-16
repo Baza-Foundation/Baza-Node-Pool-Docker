@@ -28,7 +28,7 @@ services:
     baza-service:
         restart: always
         build: ./baza-daemon/
-        env_file: ./baza-daemon/.env
+        env_file: ./baza-service/.env
         expose:
             - "8070"
     
