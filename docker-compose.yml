@@ -11,6 +11,9 @@ services:
         image: redis:latest
         expose:
             - "6379"
+        volumes:
+            - ./redisdata:/data
+        entrypoint: redis-server --appendonly yes
 
     baza-explorer-back:
         restart: always
@@ -24,6 +27,8 @@ services:
         build: ./baza-daemon/
         expose:
             - "11754"
+        volumes:
+            - ./baza-daemon/log:/var/log/bazad
 
     baza-service:
         restart: always
@@ -31,6 +36,8 @@ services:
         env_file: ./baza-service/.env
         expose:
             - "8070"
+        volumes:
+            - ./baza-service/log:/var/log/bazaservice
     
     poolserver:
         restart: always
@@ -42,4 +49,8 @@ services:
             - '0.0.0.0:5555:5555'
             - '0.0.0.0:7777:7777'
         volumes:
-            - ./poolserver/poolserverlogs:/pool/logs
+            - ./poolserver/logs:/pool/logs
+        depends_on:
+            - redis
+            - baza-daemon
+            - baza-service
