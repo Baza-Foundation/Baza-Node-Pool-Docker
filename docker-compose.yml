@@ -39,6 +39,7 @@ services:
       - "8070"
     volumes:
       - ./baza-service/log:/var/log/bazaservice
+      - ./baza-service/wallet:/wallet
 
   poolserver:
     restart: always
