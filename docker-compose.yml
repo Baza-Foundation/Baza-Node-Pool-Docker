@@ -1,56 +1,57 @@
 version: "2"
 services:
-    nginx:
-        restart: always
-        build: ./nginx/
-        ports:
-            - "127.0.0.1:8007:80"
-    
-    redis:
-        restart: always
-        image: redis:latest
-        expose:
-            - "6379"
-        volumes:
-            - ./redisdata:/data
-        entrypoint: redis-server --appendonly yes
+  nginx:
+    restart: always
+    build: ./nginx/
+    ports:
+      - "127.0.0.1:8007:80"
 
-    baza-explorer-back:
-        restart: always
-        build: ./baza-explorer-backend/
-        env_file: ./baza-explorer-backend/.env
-        expose:
-            - "8000"
-    
-    baza-daemon:
-        restart: always
-        build: ./baza-daemon/
-        expose:
-            - "11754"
-        volumes:
-            - ./baza-daemon/log:/var/log/bazad
+  redis:
+    restart: always
+    image: redis:latest
+    expose:
+      - "6379"
+    volumes:
+      - ./redisdata:/data
+    entrypoint: redis-server --appendonly yes
 
-    baza-service:
-        restart: always
-        build: ./baza-service/
-        env_file: ./baza-service/.env
-        expose:
-            - "8070"
-        volumes:
-            - ./baza-service/log:/var/log/bazaservice
-    
-    poolserver:
-        restart: always
-        build: ./poolserver/
-        expose:
-            - '8117'
-        ports:
-            - '0.0.0.0:3333:3333'
-            - '0.0.0.0:5555:5555'
-            - '0.0.0.0:7777:7777'
-        volumes:
-            - ./poolserver/logs:/pool/logs
-        depends_on:
-            - redis
-            - baza-daemon
-            - baza-service
+  baza-explorer-back:
+    restart: always
+    build: ./baza-explorer-backend/
+    env_file: ./baza-explorer-backend/.env
+    expose:
+      - "8000"
+
+  baza-daemon:
+    restart: always
+    build: ./baza-daemon/
+    expose:
+      - "11754"
+    volumes:
+      - ./baza-daemon/log:/var/log/bazad
+      - ./baza-daemon/.Baza:/root/.Baza
+
+  baza-service:
+    restart: always
+    build: ./baza-service/
+    env_file: ./baza-service/.env
+    expose:
+      - "8070"
+    volumes:
+      - ./baza-service/log:/var/log/bazaservice
+
+  poolserver:
+    restart: always
+    build: ./poolserver/
+    expose:
+      - "8117"
+    ports:
+      - "0.0.0.0:3333:3333"
+      - "0.0.0.0:5555:5555"
+      - "0.0.0.0:7777:7777"
+    volumes:
+      - ./poolserver/logs:/pool/logs
+    depends_on:
+      - redis
+      - baza-daemon
+      - baza-service
