@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM debian:buster
 COPY baza-service /bin
 RUN mkdir /wallet
 COPY poolserver.wallet /wallet
