@@ -35,7 +35,7 @@ services:
     restart: always
     build: ./baza-service/
     env_file: ./baza-service/.env
-    cpu_count: 0.5
+    cpus: 0.5
     expose:
       - "8070"
     volumes:
