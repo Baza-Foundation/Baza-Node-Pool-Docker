@@ -57,3 +57,11 @@ services:
       - redis
       - baza-daemon
       - baza-service
+
+  redis-commander:
+    restart: always
+    build: "./redis-commander/"
+    env_file:
+      - "./redis-commander/.env"
+    expose:
+      - "8081"
