@@ -28,8 +28,8 @@ services:
     expose:
       - "11754"
     volumes:
-      - ./baza-daemon/log:/var/log/bazad
-      - ./baza-daemon/.Baza:/root/.Baza
+      - ./baza-daemon-data/log:/var/log/bazad
+      - ./baza-daemon-data/.Baza:/root/.Baza
 
   baza-service:
     restart: always
@@ -39,8 +39,8 @@ services:
     expose:
       - "8070"
     volumes:
-      - ./baza-service/log:/var/log/bazaservice
-      - ./baza-service/wallet:/wallet
+      - ./baza-service-data/log:/var/log/bazaservice
+      - ./baza-service-data/wallet:/wallet
 
   poolserver:
     restart: always
