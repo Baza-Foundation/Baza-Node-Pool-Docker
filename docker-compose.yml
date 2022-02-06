@@ -47,13 +47,13 @@ services:
     build: ./poolserver/
     expose:
       - "8117"
-      - "3333"
-      - "5555"
-      - "7777"
-    # ports:
-    #   - "0.0.0.0:3333:3333"
-    #   - "0.0.0.0:5555:5555"
-    #   - "0.0.0.0:7777:7777"
+      # - "3333"
+      # - "5555"
+      # - "7777"
+    ports:
+      - "0.0.0.0:3333:3333"
+      - "0.0.0.0:5555:5555"
+      - "0.0.0.0:7777:7777"
     volumes:
       - ./poolserver/logs:/pool/logs
     depends_on:
@@ -61,13 +61,13 @@ services:
       - baza-daemon
       - baza-service
 
-  haproxy:
-    restart: always
-    build: "./haproxy/"
-    ports:
-      - "0.0.0.0:3333:3333"
-      - "0.0.0.0:5555:5555"
-      - "0.0.0.0:7777:7777"
+  # haproxy:
+  #   restart: always
+  #   build: "./haproxy/"
+  #   ports:
+  #     - "0.0.0.0:3333:3333"
+  #     - "0.0.0.0:5555:5555"
+  #     - "0.0.0.0:7777:7777"
   # redis-commander:
   #   restart: always
   #   build: "./redis-commander/"
