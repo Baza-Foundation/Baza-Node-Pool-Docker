@@ -4,7 +4,7 @@ services:
     restart: always
     build: ./nginx/
     ports:
-      - "127.0.0.1:8007:80"
+      - "127.0.0.1:8009:80"
 
   redis:
     restart: always
